@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gemini_game/api/gemini_api.dart';
+import 'package:gemini_game/models/environment.dart';
 import 'package:gemini_game/pages/game.dart';
+
 import 'package:gemini_game/pages/loading.dart';
+import 'package:gemini_game/repositories/gemini_repository.dart';
 import 'package:gemini_game/themes/colors.dart';
 import 'package:gemini_game/utils/helpers.dart';
 import 'package:gemini_game/widgets/logo.dart';
@@ -17,6 +21,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int type = 0;
   bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,24 +79,36 @@ class _HomePageState extends State<HomePage> {
                       child: SizedBox(
                           width: MediaQuery.sizeOf(context).width - 20,
                           child: RoundedPurpleButton(
-                            label: "Commencer le jeu",
-                            radius: 10,
-                            callback: () {
-                              setState(() {
-                                isLoading = true;
-                              });
-                              Future.delayed(const Duration(seconds: 3), () {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const GamePage()),
-                                    (route) => false);
-                              });
-                            },
-                          )))
+                              label: "Commencer le jeu",
+                              radius: 10,
+                              callback: () {
+                                if (type == 0) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              "Veuillez choisir votre environnement")));
+                                } else {
+                                  getData();
+                                }
+                              })))
                 ],
               ),
             ),
     );
+  }
+
+  void getData() {
+    setState(() {
+      isLoading = true;
+    });
+
+    GeminiRepository geminiRepository =
+        GeminiRepository(client: GeminiApi(type: "gemini-pro"));
+    geminiRepository
+        .loadObjects(GameEnvironment.values.elementAt(type - 1))
+        .then((value) => Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => GamePage(items: value)),
+            (route) => false));
   }
 }

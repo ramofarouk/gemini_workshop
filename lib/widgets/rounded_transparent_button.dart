@@ -4,11 +4,8 @@ import 'package:gemini_game/themes/colors.dart';
 class RoundedTransparentButton extends StatelessWidget {
   final String label;
   final VoidCallback callback;
-  const RoundedTransparentButton({
-    super.key,
-    required this.label,
-    required this.callback,
-  });
+  const RoundedTransparentButton(
+      {super.key, required this.label, required this.callback});
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +18,9 @@ class RoundedTransparentButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(25))),
         onPressed: callback,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          child: Text(
-            label,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-        ));
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: Text(label,
+                style: const TextStyle(
+                    fontSize: 18, fontWeight: FontWeight.bold))));
   }
 }

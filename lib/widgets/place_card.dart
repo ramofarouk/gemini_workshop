@@ -16,28 +16,20 @@ class PlaceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: GestureDetector(
-        onTap: callback,
-        child: Card(
-          color: isChoose ? primaryColor : greyColor,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30),
-            child: Column(
-              children: [
-                Image.asset(image, width: 75),
-                Helpers.getVerticalSpacer(2),
-                Text(
-                  label,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22,
-                      color: isChoose ? Colors.white : textColor),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+        child: GestureDetector(
+            onTap: callback,
+            child: Card(
+                color: isChoose ? primaryColor : greyColor,
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 30),
+                    child: Column(children: [
+                      Image.asset(image, width: 75),
+                      Helpers.getVerticalSpacer(2),
+                      Text(label,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                              color: isChoose ? Colors.white : textColor))
+                    ])))));
   }
 }

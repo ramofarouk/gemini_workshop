@@ -7,12 +7,8 @@ class AppLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: 70,
-      backgroundColor: secondaryColor,
-      child: Image.asset(
-        "assets/logo.png",
-        width: 80,
-      ),
-    );
+        radius: 70,
+        backgroundColor: secondaryColor,
+        child: Image.asset("assets/logo.png", width: 80));
   }
 }
