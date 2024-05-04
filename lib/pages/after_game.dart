@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gemini_game/pages/home.dart';
 import 'package:gemini_game/themes/colors.dart';
 import 'package:gemini_game/utils/helpers.dart';
 import 'package:gemini_game/widgets/logo.dart';
 import 'package:gemini_game/widgets/rounded_purple_button.dart';
 
 class AfterGamePage extends StatefulWidget {
-  const AfterGamePage({super.key});
+  final int score;
+  const AfterGamePage({super.key, required this.score});
 
   @override
   State<AfterGamePage> createState() => _AfterGamePageState();
@@ -31,9 +33,9 @@ class _AfterGamePageState extends State<AfterGamePage> {
                   style: TextStyle(fontSize: 25, color: textColor),
                 ),
                 Helpers.getVerticalSpacer(2),
-                const Text(
-                  "Votre score est : 300",
-                  style: TextStyle(
+                Text(
+                  "Votre score est : ${widget.score}",
+                  style: const TextStyle(
                       fontSize: 25,
                       color: textColor,
                       fontWeight: FontWeight.bold),
@@ -46,7 +48,13 @@ class _AfterGamePageState extends State<AfterGamePage> {
                   width: MediaQuery.sizeOf(context).width - 20,
                   child: RoundedPurpleButton(
                     label: "Réessayer",
-                    callback: () {},
+                    callback: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomePage()),
+                          (route) => false);
+                    },
                   ),
                 ))
           ],
