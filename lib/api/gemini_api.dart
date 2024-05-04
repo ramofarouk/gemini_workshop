@@ -25,8 +25,6 @@ class GeminiApi {
       Content.text(prompt),
     ]);
 
-    print(response.text);
-
     return response.text;
   }
 
